@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        .cards-container
+        {
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            
+        }
+
+        .cards
+        {
+            width: 60vw;
+            border-radius: 125px;
+            border: 2px solid grey;
+            padding: 30px 20px;
+            -webkit-box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
+            -moz-box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
+            box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
+        }
+        
+        .img-block
+        {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 15px 0px;
+        }
+        .cards-container img
+        {
+            max-height: 200px;
+            -webkit-box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
+            -moz-box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
+            box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
+            border-radius: 15px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="cards-container">
+        <div class="cards">
+            <div class="img-block">
+                <img src="../public/img/PNG/Hands/High.png" alt="">
+                <img src="../public/img/PNG/Hands/Pair.png" alt="">
+                <img src="../public/img/PNG/Hands/TwoPair.png" alt="">
+            </div>
+
+            <div class="img-block">
+                <img src="../public/img/PNG/Hands/ThreeOfKind.png" alt="">
+                <img src="../public/img/PNG/Hands/Straight.png" alt="">
+                <img src="../public/img/PNG/Hands/Flush.png" alt="">
+
+            </div>
+
+            <div class="img-block">
+                <img src="../public/img/PNG/Hands/FullHouse.png" alt="">
+                <img src="../public/img/PNG/Hands/FourOfKind.png" alt="">
+                <img src="../public/img/PNG/Hands/StraightFlush.png" alt="">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

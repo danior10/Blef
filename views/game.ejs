@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="landingPage">
+            <h1>Hello landing page</h1>
+            <form action="/toGame" id="game-form">
+                <label for="username">Enter username</label>
+                <input type="text" id="username" name="username">
+                <button type="submit" id="submit">Submit</button>
+            </form>
+        </div>
+        <div class="game">
+            <img src="https://polski-sport.pl/wp-content/uploads/2019/06/Poker-1024x507.jpg" alt="">
+<!-- Tutaj zrobić listę z nickami graczy  -->
+            <div id="players">
+                <table id="table">
+
+                </table>
+                <div id="readyButtonDiv">
+                    <button id="readyButton" style="font-size: 50px; background-color: hotpink; color: indigo;">Ready</button>
+                </div>
+                
+            </div>
+        </div>
+        <div id="start">
+            <img src="https://www.ckm.pl/files/2014_10/dan-bilzerian2-7789fb84318d5376e676b4efa7cd4e0e_bb9983.jpg" alt="">
+            <br>
+            <button id="rise">Rise</button> <button id="check">Check</button>            
+
+
+        </div>
+
+        <div class="pop-up">
+
+            <div id="hands-container" class="hands-container">
+                <div style="position: fixed; right: 30px; top:30px;">
+                    <button id='closeButton1'>&times;</button>
+                </div>
+                <div class="hands">
+                    <div class="img-block">
+                        <img id="High" src="../public/img/PNG/Hands/High.png" alt="">
+                        <img id="Pair" src="../public/img/PNG/Hands/Pair.png" alt="">
+                        <img id="TwoPair" src="../public/img/PNG/Hands/TwoPair.png" alt="">
+                    </div>
+        
+                    <div class="img-block">
+                        <img id="ThreeOfKind" src="../public/img/PNG/Hands/ThreeOfKind.png" alt="">
+                        <img id="Straight" src="../public/img/PNG/Hands/Straight.png" alt="">
+                        <img id="Flush" src="../public/img/PNG/Hands/Flush.png" alt="">
+        
+                    </div>
+        
+                    <div class="img-block">
+                        <img id="FullHouse" src="../public/img/PNG/Hands/FullHouse.png" alt="">
+                        <img id="FourOfKind" src="../public/img/PNG/Hands/FourOfKind.png" alt="">
+                        <img id="StraightFlush" src="../public/img/PNG/Hands/StraightFlush.png" alt="">
+        
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="ranks-container" id="ranks-container">
+                <div style="position: fixed; right: 30px; top:30px;">
+                    <button id='closeButton2'>&times;</button>
+                </div>
+                <div class="ranks">
+                    <div class="img-block">
+                        <img id="2" src="../public/img/PNG/2S.png" alt="">
+                        <img id="3" src="../public/img/PNG/3S.png" alt="">
+                        <img id="4" src="../public/img/PNG/4S.png" alt="">
+                        <img id="5" src="../public/img/PNG/5S.png" alt="">
+                    </div>
+                    <div class="img-block">
+                        <img id="6" src="../public/img/PNG/6S.png" alt="">
+                        <img id="7" src="../public/img/PNG/7S.png" alt="">
+                        <img id="8" src="../public/img/PNG/8S.png" alt="">
+                        <img id="9" src="../public/img/PNG/9S.png" alt="">
+                        <img id="10" src="../public/img/PNG/10S.png" alt="">
+                    </div>
+        
+                    <div class="img-block">
+                        <img id="J" src="../public/img/PNG/JS.png" alt="">
+                        <img id="Q" src="../public/img/PNG/QS.png" alt="">
+                        <img id="K" src="../public/img/PNG/KS.png" alt="">
+                        <img id="A" src="../public/img/PNG/AS.png" alt="">
+                    </div>
+            
+                    <div class="img-block">
+                        
+                
+                    </div>
+            
+                </div>
+            </div>
+
+
+            <div id="colors-container">
+                <div style="position: fixed; right: 30px; top:30px;">
+                    <button id='closeButton3'>&times;</button>
+                </div>
+                <div class="colors">
+                    <div class="img-block">
+                        <img src="../public/img/PNG/AC.png" alt="">
+                        <img src="../public/img/PNG/AD.png" alt="">
+        
+                    </div>
+        
+                    <div class="img-block">
+                        <img src="../public/img/PNG/AH.png" alt="">
+                        <img src="../public/img/PNG/AS.png" alt="">
+            
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="overlay"></div>
+
+        </div>
+
+    </div>
+    <!-- <script>
+        $('#game-form').on('submit', (e)=>{
+            e.preventDefault()
+            $('.landingPage').css('display', 'none')
+            $('.game').css('display', 'block')
+
+            let username = $('#username').val();
+            socket.username = username
+            socket.emit
+    
+
+        })
+    </script> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
+
+<!-- <table>
+    <tr>
+        <td>Daniel</td><td style="color: green;">ready</td>
+    </tr>
+</table> -->
