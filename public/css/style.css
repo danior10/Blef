@@ -129,6 +129,7 @@
     -moz-box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
     box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
     border-radius: 15px;
+    cursor: pointer;
 }
 
 /* 
@@ -182,6 +183,8 @@
     -moz-box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
     box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
     border-radius: 15px;
+    cursor: pointer;
+
 }
 
 
@@ -242,6 +245,8 @@
     -moz-box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
     box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
     border-radius: 15px;
+    cursor: pointer;
+
 }
 /* 
 
@@ -305,6 +310,8 @@
     -moz-box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
     box-shadow: 5px 5px 20px 5px rgba(94,94,94,0.75);
     border-radius: 15px;
+    cursor: pointer;
+
 }
 
 .pop-up
