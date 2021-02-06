@@ -1,55 +1,83 @@
 define('High', function() {
-    return function High(rank){
-        this.rank = rank
+    return class High{
+        constructor(rank) {
+        this.rank = rank,
+        this.hand = 'High'
+    }
     };
 });
 
 define('Pair', function() {
-    return function Pair(rank){
-        this.rank = rank
+    return class Pair{
+        constructor(rank){
+            this.rank = rank
+            this.hand = 'Pair'
+        }
     }
 });
 
 define('TwoPair', function() {
-    return function TwoPair(first,second){
+    return class TwoPair{
+        constructor(first,second){
         this.first = first
         this.second = second
+        this.hand = 'TwoPair'
+        }
     }
 });
 
 define('ThreeOfKind', function() {
-    return function ThreeOfKind(rank){
-        this.rank = rank
+    return class ThreeOfKind{
+        constructor(rank){
+            this.rank = rank
+            this.hand = 'ThreeOfKind'
+        }
     }
 });
 
 define('Straight', function() {
-    return function Straight(){
+    return class Straight{
+        constructor(){
+            this.hand = 'Straight'
+        }
     }
 });
 
 define('Flush', function() {
-    return function Flush(house){
-        this.house = house
+    return class Flush{
+        constructor(house){
+            this.house = house
+            this.hand = 'Flush'
+        }
+
     }
 
 });
 
 define('Full', function() {
-    return function Full(three, two){
-        this.three = three
-        this.two = two
+    return class Full{
+        constructor(three, two){
+            this.three = three,
+            this.two = two
+            this.hand = 'Full'
+        }
     }
 });
 
 define('FourOfKind', function() {
-    return function FourOfKind(rank){
-        this.rank = rank
+    return class FourOfKind{
+        constructor(rank){
+            this.rank = rank
+            this.hand = 'FourOfKind'
+        }
     }
 });
 
 define('StraightFlush', function() {
-    return function StraightFlush(house){
-        this.house = house
+    return class StraightFlush{
+        constructor(house){
+            this.house = house
+            this.hand = 'StraightFlush'
+        }
     }
 });

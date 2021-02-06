@@ -223,18 +223,30 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
                 newHand = new FourOfKind(rank)
                 socket.emit('rise', newHand)
                 break;
-    
-            case "StraightFlush":
-                newHand = new StraightFlush(rank)
-                socket.emit('rise', newHand)
-                break;
 
             default:
                 break;
         }
         
     }
-    
+
+    function determineColor(hand, color) {
+        switch (hand) {
+            case "Flush":
+                newHand = new Flush(color)
+                socket.emit('rise', newHand)
+                break;
+            
+            case "StraightFlush":
+                newHand = new StraightFlush(color)
+                socket.emit('rise', newHand)
+                break;
+        
+            default:
+                break;
+        }
+        
+    }
     
     $('#2').on('click',()=>{
         console.log("wyswietlam zmienna hand");
@@ -291,6 +303,21 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         determineHand(hand,"A")
     })
     
+    $('#clubs').on('click',()=>{
+        determineColor(hand, "Clubs")
+    })
+
+    $('#diamonds').on('click',()=>{
+        determineColor(hand, "Diamonds")
+    })
+
+    $('#hearts').on('click',()=>{
+        determineColor(hand,"Hearts")
+    })
+    
+    $('#spades').on('click',()=>{
+        determineColor(hand,"Spades")
+    })
     
     
     socket.on('choose',(actualHand)=>{

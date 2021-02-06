@@ -109,6 +109,8 @@ io.on('connection', (socket) => {
 
     socket.on('rise', (hand)=>{
         console.log('Podbijam');
+        console.log(hand);
+        console.log(hand.hand);
         actualHand = hand
         console.log(actualHand);
         round++;
