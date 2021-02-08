@@ -327,6 +327,8 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         //W przypadku kliknięcia check, wyślij do serwera informacje o sprawdzeniu aktualnej ręki
         //W przypadku wybranie rise, wyświetl możliwe opcje do przebicia, nie pokazuj układów niższych niż aktualna reka
         //Po wybraniu wyższego układu, wyślij info do serwera o nowym układzie który obowiązuje
+        //Po wybraniu przebicia ustaw klasę inactive dla wszystkich handów i dla poszczególnych układów w tych handach
+        
     
     })
 
