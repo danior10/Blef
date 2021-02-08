@@ -334,3 +334,13 @@
 
     z-index: 10;
 }
+
+.inactive
+{
+    opacity: 0.4;
+}
+
+.inactive:hover
+{
+    cursor: not-allowed;
+}

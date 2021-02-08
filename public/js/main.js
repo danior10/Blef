@@ -31,6 +31,8 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     let hand
     let first,second
     let firstChosen = false
+    let hands = ['High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full','FourOfKind','StraightFlush']
+    let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K","A"]
     
     
     
@@ -127,7 +129,6 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         hand = "TwoPair"
     })
     
-    
     $('#ThreeOfKind').on('click', ()=>{
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
@@ -138,8 +139,8 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     
         $('#hands-container').removeClass('active')
         //Wyślij info o stricie do servera
-        hand = "Straight"
-        socket.emit('straight')
+        newHand = new Straight()
+        socket.emit('rise', newHand)
     })
     
     $('#Flush').on('click', ()=>{
@@ -148,20 +149,17 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         hand = "Flush"
     })
     
-    
     $('#FullHouse').on('click', ()=>{
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
         hand = "Full"
     })
     
-    
     $('#FourOfKind').on('click', ()=>{
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
         hand = "FourOfKind"
     })
-    
     
     $('#StraightFlush').on('click', ()=>{
         $('#hands-container').removeClass('active')
@@ -322,7 +320,31 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     
     socket.on('choose',(actualHand)=>{
         console.log('podbij albo sprawdz');
-        //wyświetl dostępne opcje(rise or check)
+        if (actualHand == null) {
+            for (let i = 0; i < hands.length; i++) {
+                $("#" + hands[i]).removeClass('inactive')
+            }
+            for (let i = 0; i <= ranks.length; i++) {
+                $("#" + ranks[i]).removeClass('inactive')
+                
+            }
+        }
+        if (actualHand.rank != "A") {
+            for (let i = 0; i < actualHand.value; i++) {
+                $("#" + hands[i]).addClass('inactive')
+            }
+            let index = ranks.indexOf(actualHand.rank)
+            for (let i = 0; i <= index; i++) {
+                $("#" + ranks[i]).addClass('inactive')
+                
+            }
+        }else{
+            for (let i = 0; i <= actualHand.value; i++) {
+                $("#" + hands[i]).addClass('inactive')
+            }
+        }
+
+        //wyświetl dostępne opcje(rise o
         //Wyświetl dwa buttony
         //W przypadku kliknięcia check, wyślij do serwera informacje o sprawdzeniu aktualnej ręki
         //W przypadku wybranie rise, wyświetl możliwe opcje do przebicia, nie pokazuj układów niższych niż aktualna reka

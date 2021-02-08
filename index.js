@@ -163,6 +163,7 @@ function startRound(){
     for (const socket of sockets) {
         console.log(socket.id);
     }
+    actualHand = null
     console.log('****');
     console.log('****');
     console.log(sockets[round].id);
