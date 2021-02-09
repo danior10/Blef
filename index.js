@@ -51,7 +51,21 @@ io.on('connection', (socket) => {
     console.log('a user connected');
     let player = new Player('player', socket.id)
     players.push(player)
+    socket.player = player
+    console.log("****");
+    console.log("****");
+    console.log("****");
+    console.log('Wypisuje socket.player');
+    console.log(socket.player);
+    console.log("****");
+    console.log("****");
+    console.log("****");
+
     sockets.push(socket)
+    for (const socket of sockets) {
+        console.log('********** WYPISZ WSZYSTKICH GRACZY POPRZEZ SOCKET.PLAYER **********');
+        console.log(socket.player);
+    }
 
     console.log(socket.id);
     socket.emit('message', `siemasz ${player.username} with id: ${player.id}:D`)
@@ -246,6 +260,11 @@ function startRound(whoStarts){
     console.log(sockets[round].id);
     console.log('****');
     console.log('****');
+    for (const socket of sockets) {
+        socket.emit('message', "pokazuje karty")
+        socket.emit('showCards', socket.player)
+
+    }
     sockets[round].emit('message', "sprawdzanko")
     sockets[round].emit('choose', actualHand)
 

@@ -34,6 +34,60 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     let hands = ['High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full','FourOfKind','StraightFlush']
     let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K","A"]
     let recievedHand
+    let cardsImages = {
+        '2C': "../img/PNG/2C.png",
+        '2D': "../img/PNG/2D.png",
+        '2H': "../img/PNG/2H.png",
+        '2S': "../img/PNG/2S.png",
+        '3C': "../img/PNG/3C.png",
+        '3D': "../img/PNG/3D.png",
+        '3H': "../img/PNG/3H.png",
+        '3S': "../img/PNG/3S.png",
+        '4C': "../img/PNG/4C.png",
+        '4D': "../img/PNG/4D.png",
+        '4H': "../img/PNG/4H.png",
+        '4S': "../img/PNG/4S.png",
+        '5C': "../img/PNG/5C.png",
+        '5D': "../img/PNG/5D.png",
+        '5H': "../img/PNG/5H.png",
+        '5S': "../img/PNG/5S.png",
+        '6C': "../img/PNG/6C.png",
+        '6D': "../img/PNG/6D.png",
+        '6H': "../img/PNG/6H.png",
+        '6S': "../img/PNG/6S.png",
+        '7C': "../img/PNG/7C.png",
+        '7D': "../img/PNG/7D.png",
+        '7H': "../img/PNG/7H.png",
+        '7S': "../img/PNG/7S.png",
+        '8C': "../img/PNG/8C.png",
+        '8D': "../img/PNG/8D.png",
+        '8H': "../img/PNG/8H.png",
+        '8S': "../img/PNG/8S.png",
+        '9C': "../img/PNG/9C.png",
+        '9D': "../img/PNG/9D.png",
+        '9H': "../img/PNG/9H.png",
+        '9S': "../img/PNG/9S.png",
+        '10C': "../img/PNG/10C.png",
+        '10D': "../img/PNG/10D.png",
+        '10H': "../img/PNG/10H.png",
+        '10S': "../img/PNG/10S.png",
+        'JC': "../img/PNG/JC.png",
+        'JD': "../img/PNG/JD.png",
+        'JH': "../img/PNG/JH.png",
+        'JS': "../img/PNG/JS.png",
+        'QC': "../img/PNG/QC.png",
+        'QD': "../img/PNG/QD.png",
+        'QH': "../img/PNG/QH.png",
+        'QS': "../img/PNG/QS.png",
+        'KC': "../img/PNG/KC.png",
+        'KD': "../img/PNG/KD.png",
+        'KH': "../img/PNG/KH.png",
+        'KS': "../img/PNG/KS.png",
+        'AC': "../img/PNG/AC.png",
+        'AD': "../img/PNG/AD.png",
+        'AH': "../img/PNG/AH.png",
+        'AS': "../img/PNG/AS.png",
+    }
     
     
     $('#game-form').on('submit', (e)=>{
@@ -74,6 +128,96 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     });
     
     
+    socket.on('showCards', (socketPlayer)=>{
+
+        //Ty downie zapomniałeś, że w main.js nie ma tablicy graczy i tablicy socketów
+
+
+        console.log('testujemy co nie dziala');
+        let playerId = socket.id
+        let playerHand = socketPlayer.hand
+        // console.log(socketPlayer);
+
+        let img = $(document.createElement('img'))
+        let temp
+        for (let i = 0; i < playerHand.length; i++) {
+            switch (playerHand[i].house) {
+                case "Clubs":
+                    
+                    temp = ((playerHand[i].rank) + "C")
+                    img.attr('src', cardsImages[temp])
+                    $('#cardsPlace').append(img)
+                    break;
+                case "Diamonds":
+                    temp = ((playerHand[i].rank) + "D")
+                    img.attr('src', cardsImages[temp])
+                    $('#cardsPlace').append(img)
+                    break;
+                case "Hearts":
+                    temp = ((playerHand[i].rank) + "H")
+                    img.attr('src', cardsImages[temp])
+                    $('#cardsPlace').append(img)
+                    break;
+                case "Spades":
+                    temp = ((playerHand[i].rank) + "S")
+                    img.attr('src', cardsImages[temp])
+                    $('#cardsPlace').append(img)
+                    break;
+            
+                default:
+                    break;
+            }            
+        }
+    })
+
+    function cardRankIs(card) {
+        switch (card.rank) {
+            case "2":
+                
+                break;
+            case "3":
+                
+                break;
+            case "4":
+                
+                break;
+            case "5":
+                
+                break;
+            case "6":
+                
+                break;
+            case "7":
+                
+                break;
+            case "8":
+                
+                break;
+            case "9":
+                
+                break;
+            case "10":
+                
+                break;
+            case "J":
+                
+                break;
+            case "Q":
+                
+                break;
+            case "K":
+                
+                break;
+            case "A":
+                
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+
     $('#readyButton').on('click', ()=>{
         socket.emit('ready')
     })
@@ -320,6 +464,7 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     
     socket.on('choose',(actualHand)=>{
         console.log('podbij albo sprawdz');
+
         recievedHand = actualHand
         if (actualHand == null) {
             for (let i = 0; i < hands.length; i++) {
