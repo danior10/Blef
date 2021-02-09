@@ -33,7 +33,7 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     let firstChosen = false
     let hands = ['High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full','FourOfKind','StraightFlush']
     let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K","A"]
-    
+    let recievedHand
     
     
     $('#game-form').on('submit', (e)=>{
@@ -106,7 +106,7 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     })
     
     $('#check').on('click', ()=>{
-        socket.emit('check')
+        socket.emit('check', recievedHand)
     })
     
     
@@ -320,6 +320,7 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     
     socket.on('choose',(actualHand)=>{
         console.log('podbij albo sprawdz');
+        recievedHand = actualHand
         if (actualHand == null) {
             for (let i = 0; i < hands.length; i++) {
                 $("#" + hands[i]).removeClass('inactive')

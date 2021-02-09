@@ -175,6 +175,7 @@ io.on('connection', (socket) => {
             for (const player of players) {
                 if (player.id == socket.id) {
                     player.loses++;
+                    socket.emit('message', "Przejebałeś lamusie")
                 }
             }    
         }else{
@@ -182,12 +183,20 @@ io.on('connection', (socket) => {
             let losingIndex
             for (const player of players) {
                 if (player.id == socket.id) {
-                    losingIndex = (players.indexOf(player) - 1)
+                    if (players.indexOf(player) == 0) {
+                        losingIndex = players.length - 1
+                    }else{
+                        losingIndex = (players.indexOf(player) - 1)
+                    }
                 }
             }  
             players[losingIndex].loses++
+            sockets[losingIndex].emit('message', "Przejebałeś lamusie")
         }
         console.log('przegrany dostaje dodatkową kartę i zaczyna kolejkę');
+        for (const player of players) {
+            player.hand.length = 0
+        }
         startRound();
 
         //Stwórz tablice wszystkich kart na rekach graczy
