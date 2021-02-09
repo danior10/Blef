@@ -80,7 +80,7 @@ io.on('connection', (socket) => {
         gameIsOn = allReady();
         if (gameIsOn) {
             io.emit('start')
-            startRound()
+            startRound(0)
             // console.log('printing sockets');
             // console.log(sockets);
         }
@@ -170,12 +170,14 @@ io.on('connection', (socket) => {
                 break;
         }
         let checkingPlayerId = socket.id
+        let loserStarts;
         if (isOnTable) {
             //jeżeli sprawdzany układ jest na stole to sprawdzający ciagnie karte wiecej czyli aktualny socket.id
             for (const player of players) {
                 if (player.id == socket.id) {
                     player.loses++;
                     socket.emit('message', "Przejebałeś lamusie")
+                    loserStarts = sockets.indexOf(socket)
                 }
             }    
         }else{
@@ -192,12 +194,13 @@ io.on('connection', (socket) => {
             }  
             players[losingIndex].loses++
             sockets[losingIndex].emit('message', "Przejebałeś lamusie")
+            loserStarts = losingIndex
         }
         console.log('przegrany dostaje dodatkową kartę i zaczyna kolejkę');
         for (const player of players) {
             player.hand.length = 0
         }
-        startRound();
+        startRound(loserStarts);
 
         //Stwórz tablice wszystkich kart na rekach graczy
         //Uzyć checkera do sprawdzenia czy dany hand jest w tych kartach
@@ -227,12 +230,12 @@ function dealCards(deck){
     console.log(players);
 }
 
-function startRound(){
+function startRound(whoStarts){
 
     let deck = new Deck();
     deck.shuffleDeck();
     deck.shuffleDeck();
-    round = 0;
+    round = whoStarts;
     dealCards(deck);
     for (const socket of sockets) {
         console.log(socket.id);
