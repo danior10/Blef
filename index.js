@@ -7,6 +7,7 @@ const Check = require('./Classes/Check');
 const Player = require('./Classes/Player');
 const Deck = require('./Classes/Deck');
 const Hands = require('./Hands/Hands')
+const Checker = require('./Utils/Checker')
 
 let players = new Array();
 let sockets = new Array();
@@ -122,6 +123,70 @@ io.on('connection', (socket) => {
 
     socket.on('check', (hand)=>{
         console.log('Sprawdzam');
+        let allCards = new Array();
+        for (const player of players) {
+            allCards = allCards.concat(player.hand)
+        }
+        let checker = new Checker(allCards)
+        let isOnTable = false;
+        switch (hand.rank) {
+            case "High":
+                isOnTable = checker.isHigh()
+                break;
+        
+            case "Pair":
+                isOnTable = checker.isPair()
+                break;
+        
+            case "TwoPair":
+                isOnTable = checker.isTwoPairs()
+                break;
+        
+            case "ThreeOfKind":
+                isOnTable = checker.isThreeOfKind()
+                break;
+        
+            case "Straight":
+                isOnTable = checker.isStraight()
+                break;
+        
+            case "Flush":
+                isOnTable = checker.isFlush()
+                break;
+        
+            case "Full":
+                isOnTable = checker.isFullHouse()
+                break;
+        
+            case "FourOfKind":
+                isOnTable = checker.isFourOfKind()
+                break;
+        
+            case "StraightFlush":
+                isOnTable = checker.isStraightFlush()
+                break;
+        
+            default:
+                break;
+        }
+        let checkingPlayerId = socket.id
+        if (isOnTable) {
+            //jeżeli sprawdzany układ jest na stole to sprawdzający ciagnie karte wiecej czyli aktualny socket.id
+            for (const player of players) {
+                if (player.id == socket.id) {
+                    player.loses++;
+                }
+            }    
+        }else{
+            //sprawdzanego układu nie ma, ciągnie kartę przegrany i rozdaje czyli player o indexie -1 niż aktualny socket.id
+            let losingIndex
+            for (const player of players) {
+                if (player.id == socket.id) {
+                    losingIndex = (players.indexOf(player) - 1)
+                }
+            }  
+            players[losingIndex].loses++
+        }
         console.log('przegrany dostaje dodatkową kartę i zaczyna kolejkę');
         startRound();
 
