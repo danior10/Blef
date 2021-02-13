@@ -170,53 +170,46 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         }
     })
 
-    function cardRankIs(card) {
-        switch (card.rank) {
-            case "2":
-                
-                break;
-            case "3":
-                
-                break;
-            case "4":
-                
-                break;
-            case "5":
-                
-                break;
-            case "6":
-                
-                break;
-            case "7":
-                
-                break;
-            case "8":
-                
-                break;
-            case "9":
-                
-                break;
-            case "10":
-                
-                break;
-            case "J":
-                
-                break;
-            case "Q":
-                
-                break;
-            case "K":
-                
-                break;
-            case "A":
-                
-                break;
-        
-            default:
-                break;
+    socket.on('choose',(actualHand)=>{
+        for (let i = 0; i < hands.length; i++) {
+            $("#" + hands[i]).removeClass('inactive')
         }
-    }
+        for (let i = 0; i <= ranks.length; i++) {
+            $("#" + ranks[i]).removeClass('inactive')
+            
+        }
 
+        console.log('podbij albo sprawdz');
+
+        recievedHand = actualHand
+        // if (actualHand == null) {
+        //     for (let i = 0; i < hands.length; i++) {
+        //         $("#" + hands[i]).removeClass('inactive')
+        //     }
+        //     for (let i = 0; i <= ranks.length; i++) {
+        //         $("#" + ranks[i]).removeClass('inactive')
+                
+        //     }
+        // }
+        if (actualHand.rank != "A") {
+            for (let i = 0; i < actualHand.value; i++) {
+                $("#" + hands[i]).addClass('inactive')
+            }
+        }else{
+            for (let i = 0; i <= actualHand.value; i++) {
+                $("#" + hands[i]).addClass('inactive')
+            }
+        }
+
+        //wyświetl dostępne opcje(rise o
+        //Wyświetl dwa buttony
+        //W przypadku kliknięcia check, wyślij do serwera informacje o sprawdzeniu aktualnej ręki
+        //W przypadku wybranie rise, wyświetl możliwe opcje do przebicia, nie pokazuj układów niższych niż aktualna reka
+        //Po wybraniu wyższego układu, wyślij info do serwera o nowym układzie który obowiązuje
+        //Po wybraniu przebicia ustaw klasę inactive dla wszystkich handów i dla poszczególnych układów w tych handach
+        
+    
+    })
 
     $('#readyButton').on('click', ()=>{
         socket.emit('ready')
@@ -240,6 +233,10 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         $('#ranks-container').removeClass('active')
         $('#overlay').removeClass('active')
         $('.pop-up').removeClass('active')
+        for (let i = 0; i <= ranks.length; i++) {
+            $("#" + ranks[i]).removeClass('inactive')
+            
+        }
     })
     
     $('#closeButton3').on('click', ()=>{
@@ -255,12 +252,14 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     
     
     $('#High').on('click', ()=>{
+        fadeOutRanks(0)
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
         hand = "High"
     })
     
     $('#Pair').on('click', ()=>{
+        fadeOutRanks(1)
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
         hand = "Pair"
@@ -268,12 +267,14 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     })
     
     $('#TwoPair').on('click', ()=>{
+        fadeOutRanks(2)
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
         hand = "TwoPair"
     })
     
     $('#ThreeOfKind').on('click', ()=>{
+        fadeOutRanks(3)
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
         hand = "ThreeOfKind"
@@ -281,6 +282,7 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     
     $('#Straight').on('click', ()=>{
     
+        fadeOutRanks(4)
         $('#hands-container').removeClass('active')
         //Wyślij info o stricie do servera
         newHand = new Straight()
@@ -288,24 +290,28 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     })
     
     $('#Flush').on('click', ()=>{
+        fadeOutRanks(5)
         $('#hands-container').removeClass('active')
         $('#colors-container').addClass('active')
         hand = "Flush"
     })
     
     $('#FullHouse').on('click', ()=>{
+        fadeOutRanks(6)
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
         hand = "Full"
     })
     
     $('#FourOfKind').on('click', ()=>{
+        fadeOutRanks(7)
         $('#hands-container').removeClass('active')
         $('#ranks-container').addClass('active')
         hand = "FourOfKind"
     })
     
     $('#StraightFlush').on('click', ()=>{
+        fadeOutRanks(8)
         $('#hands-container').removeClass('active')
         $('#colors-container').addClass('active')
         hand = "StraightFlush"
@@ -390,6 +396,31 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         
     }
     
+    function fadeOutRanks(hand){
+        let index
+        if (recievedHand != null) {
+            if (recievedHand.value == 2) {
+                index = ranks.indexOf(recievedHand.first)
+                for (let i = 0; i <= index; i++) {
+                    $("#" + ranks[i]).addClass('inactive')
+                }
+            }else if (recievedHand.value == 6) {
+                index = ranks.indexOf(recievedHand.three)
+                for (let i = 0; i <= index; i++) {
+                    $("#" + ranks[i]).addClass('inactive')
+                }
+            }else{
+                if (hand <= recievedHand.value) {
+                    index = ranks.indexOf(recievedHand.rank)
+                    for (let i = 0; i <= index; i++) {
+                        $("#" + ranks[i]).addClass('inactive')
+                    }
+                }   
+            }
+        }
+    }
+
+
     $('#2').on('click',()=>{
         console.log("wyswietlam zmienna hand");
         console.log(hand);
@@ -462,43 +493,7 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     })
     
     
-    socket.on('choose',(actualHand)=>{
-        console.log('podbij albo sprawdz');
 
-        recievedHand = actualHand
-        if (actualHand == null) {
-            for (let i = 0; i < hands.length; i++) {
-                $("#" + hands[i]).removeClass('inactive')
-            }
-            for (let i = 0; i <= ranks.length; i++) {
-                $("#" + ranks[i]).removeClass('inactive')
-                
-            }
-        }
-        if (actualHand.rank != "A") {
-            for (let i = 0; i < actualHand.value; i++) {
-                $("#" + hands[i]).addClass('inactive')
-            }
-            let index = ranks.indexOf(actualHand.rank)
-            for (let i = 0; i <= index; i++) {
-                $("#" + ranks[i]).addClass('inactive')
-                
-            }
-        }else{
-            for (let i = 0; i <= actualHand.value; i++) {
-                $("#" + hands[i]).addClass('inactive')
-            }
-        }
-
-        //wyświetl dostępne opcje(rise o
-        //Wyświetl dwa buttony
-        //W przypadku kliknięcia check, wyślij do serwera informacje o sprawdzeniu aktualnej ręki
-        //W przypadku wybranie rise, wyświetl możliwe opcje do przebicia, nie pokazuj układów niższych niż aktualna reka
-        //Po wybraniu wyższego układu, wyślij info do serwera o nowym układzie który obowiązuje
-        //Po wybraniu przebicia ustaw klasę inactive dla wszystkich handów i dla poszczególnych układów w tych handach
-        
-    
-    })
 
 })
 
