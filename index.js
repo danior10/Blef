@@ -214,6 +214,10 @@ io.on('connection', (socket) => {
         for (const player of players) {
             player.hand.length = 0
         }
+        for (const socket of sockets) {
+            socket.emit('clearImg')
+    
+        }
         startRound(loserStarts);
 
         //Stwórz tablice wszystkich kart na rekach graczy
@@ -264,6 +268,12 @@ function startRound(whoStarts){
         socket.emit('message', "pokazuje karty")
         socket.emit('showCards', socket.player)
 
+    }
+    for (const socket of sockets) {
+        for (const card of socket.player.hand) {
+            console.log(socket.player.username);
+            console.log(card);
+        }
     }
     sockets[round].emit('message', "sprawdzanko")
     sockets[round].emit('choose', actualHand)

@@ -130,38 +130,76 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
     
     socket.on('showCards', (socketPlayer)=>{
 
-        //Ty downie zapomniałeś, że w main.js nie ma tablicy graczy i tablicy socketów
-
-
-        console.log('testujemy co nie dziala');
         let playerId = socket.id
         let playerHand = socketPlayer.hand
-        // console.log(socketPlayer);
-
         let img = $(document.createElement('img'))
         let temp
+        let img0, img1,img2,img3,img4
+        img0 = $(document.createElement('img'))
+        img1= $(document.createElement('img'))
+        img2 = $(document.createElement('img'))
+        img3 = $(document.createElement('img'))
+        img4 = $(document.createElement('img'))
+
+
+        for (const card of playerHand) {
+            console.log('Wypisuje kartę:');
+            console.log(card);
+            
+        }
+        let where
+        let imgToAppend
         for (let i = 0; i < playerHand.length; i++) {
+            where = '#cardsPlace'+i
+            switch (i) {
+                case 0:
+                    imgToAppend = img0
+                    break;
+                case 1:
+                    imgToAppend = img1
+                    break;
+                case 2:
+                    imgToAppend = img2
+                    break;
+                case 3:
+                    imgToAppend = img3
+                    break;
+                case 4:
+                    imgToAppend = img4
+                    break;
+            
+                default:
+                    break;
+            }
             switch (playerHand[i].house) {
                 case "Clubs":
                     
                     temp = ((playerHand[i].rank) + "C")
-                    img.attr('src', cardsImages[temp])
-                    $('#cardsPlace').append(img)
+                    imgToAppend.attr('src', cardsImages[temp])
+                    $(where).append(imgToAppend)
+                    console.log('dodaje karte');
+                    console.log(playerHand[i]);
                     break;
                 case "Diamonds":
                     temp = ((playerHand[i].rank) + "D")
-                    img.attr('src', cardsImages[temp])
-                    $('#cardsPlace').append(img)
+                    imgToAppend.attr('src', cardsImages[temp])
+                    $(where).append(imgToAppend)
+                    console.log('dodaje karte');
+                    console.log(playerHand[i]);
                     break;
                 case "Hearts":
                     temp = ((playerHand[i].rank) + "H")
-                    img.attr('src', cardsImages[temp])
-                    $('#cardsPlace').append(img)
+                    imgToAppend.attr('src', cardsImages[temp])
+                    $(where).append(imgToAppend)
+                    console.log('dodaje karte');
+                    console.log(playerHand[i]);
                     break;
                 case "Spades":
                     temp = ((playerHand[i].rank) + "S")
-                    img.attr('src', cardsImages[temp])
-                    $('#cardsPlace').append(img)
+                    imgToAppend.attr('src', cardsImages[temp])
+                    $(where).append(imgToAppend)
+                    console.log('dodaje karte');
+                    console.log(playerHand[i]);
                     break;
             
                 default:
@@ -209,6 +247,12 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         //Po wybraniu przebicia ustaw klasę inactive dla wszystkich handów i dla poszczególnych układów w tych handach
         
     
+    })
+
+    socket.on('clearImg',()=>{
+        for (let i = 0; i <= 5; i++) {
+            $('#cardsPlace'+i).empty()
+        }
     })
 
     $('#readyButton').on('click', ()=>{
