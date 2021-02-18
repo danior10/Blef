@@ -218,6 +218,9 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
         }
 
         console.log('podbij albo sprawdz');
+        alert('podbij albo sprawdz')
+        console.log("Wyswietlam aktualny uklad");
+        console.log(actualHand);
 
         recievedHand = actualHand
         // if (actualHand == null) {
@@ -371,6 +374,8 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
                 console.log(newHand.name);
                 console.log(newHand);
                 socket.emit('rise', newHand)
+                console.log('Wyswietlam nowy układ');
+                console.log(newHand);
                 break;
             case "Pair":
                 newHand = new Pair(rank)
@@ -383,6 +388,8 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
                     firstChosen = false
                     newHand = new TwoPair(first,second)
                     socket.emit('rise', newHand)
+                    console.log('Wyswietlam nowy układ');
+                    console.log(newHand);
     
                 } else {
                     first = rank
@@ -394,6 +401,8 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
             case "ThreeOfKind":
                 newHand = new ThreeOfKind(rank)
                 socket.emit('rise', newHand)
+                console.log('Wyswietlam nowy układ');
+                console.log(newHand);
                 break;
         
             case "Full":
@@ -403,6 +412,8 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
                     firstChosen = false
                     let newHand = new Full(first,second)
                     socket.emit('rise', newHand)
+                    console.log('Wyswietlam nowy układ');
+                    console.log(newHand);
     
                 } else {
                     first = rank
@@ -414,6 +425,8 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
             case "FourOfKind":
                 newHand = new FourOfKind(rank)
                 socket.emit('rise', newHand)
+                console.log('Wyswietlam nowy układ');
+                console.log(newHand);
                 break;
 
             default:
@@ -427,11 +440,15 @@ require(['jquery','High','Pair','TwoPair','ThreeOfKind','Straight','Flush','Full
             case "Flush":
                 newHand = new Flush(color)
                 socket.emit('rise', newHand)
+                console.log('Wyswietlam nowy układ');
+                console.log(newHand);
                 break;
             
             case "StraightFlush":
                 newHand = new StraightFlush(color)
                 socket.emit('rise', newHand)
+                console.log('Wyswietlam nowy układ');
+                console.log(newHand);
                 break;
         
             default:

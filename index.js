@@ -137,27 +137,31 @@ io.on('connection', (socket) => {
 
     socket.on('check', (hand)=>{
         console.log('Sprawdzam');
+        console.log(hand);
+        console.log(hand.hand);
         let allCards = new Array();
         for (const player of players) {
             allCards = allCards.concat(player.hand)
         }
         let checker = new Checker(allCards)
         let isOnTable = false;
-        switch (hand.rank) {
+        console.log("Wypisuje wszystkie karty na stole");
+        console.log(allCards);
+        switch (hand.hand) {
             case "High":
-                isOnTable = checker.isHigh()
+                isOnTable = checker.isHigh(hand.rank)
                 break;
         
             case "Pair":
-                isOnTable = checker.isPair()
+                isOnTable = checker.isPair(hand.rank)
                 break;
         
             case "TwoPair":
-                isOnTable = checker.isTwoPairs()
+                isOnTable = checker.isTwoPairs(hand.first, hand.second)
                 break;
         
             case "ThreeOfKind":
-                isOnTable = checker.isThreeOfKind()
+                isOnTable = checker.isThreeOfKind(hand.rank)
                 break;
         
             case "Straight":
@@ -165,19 +169,19 @@ io.on('connection', (socket) => {
                 break;
         
             case "Flush":
-                isOnTable = checker.isFlush()
+                isOnTable = checker.isFlush(hand.house)
                 break;
         
             case "Full":
-                isOnTable = checker.isFullHouse()
+                isOnTable = checker.isFullHouse(hand.three, hand.two)
                 break;
         
             case "FourOfKind":
-                isOnTable = checker.isFourOfKind()
+                isOnTable = checker.isFourOfKind(hand.rank)
                 break;
         
             case "StraightFlush":
-                isOnTable = checker.isStraightFlush()
+                isOnTable = checker.isStraightFlush(hand.house)
                 break;
         
             default:
@@ -245,7 +249,7 @@ function dealCards(deck){
             
         }
     }
-    console.log(players);
+    // console.log(players);
 }
 
 function startRound(whoStarts){
