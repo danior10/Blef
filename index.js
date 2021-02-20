@@ -129,8 +129,10 @@ io.on('connection', (socket) => {
         actualHand = hand
         console.log(actualHand);
         round++;
+        // console.log('teraz bedzie grac gracz z indexem: ' + round);
         if (round>= players.length) {
             round=0
+            // console.log('ups wykroczono poza tablice graczy zaczynamy od poczatku, zaczyna gracz z indexem: ' + round);
         }
         sockets[round].emit('choose', actualHand)
     })
@@ -227,7 +229,7 @@ io.on('connection', (socket) => {
         //Stwórz tablice wszystkich kart na rekach graczy
         //Uzyć checkera do sprawdzenia czy dany hand jest w tych kartach
         //W zależności kto przegra, dodać mu przegraną
-        round = false
+        
     })  
 
 
@@ -279,7 +281,7 @@ function startRound(whoStarts){
             console.log(card);
         }
     }
-    sockets[round].emit('message', "sprawdzanko")
+    // console.log('Zaczyna rundę gracz z indeksem: '+ round);
     sockets[round].emit('choose', actualHand)
 
 }
